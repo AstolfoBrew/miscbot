@@ -1,0 +1,59 @@
+{
+  "name": "discordjsv14-template",
+  "version": "0.0.0-development",
+  "description": "",
+  "types": "dist/types.d.ts",
+  "source": "src/index.ts",
+  "scripts": {
+    "start": "node -r ts-node/register ./src/index.ts",
+    "dev": "nodemon",
+    "update": "ts-node src/commands/index.ts",
+    "build": "tsc",
+    "bundle": "parcel build",
+    "run": "node dist/index.js",
+    "lint": "eslint src environment.ts",
+    "lint:fix": "eslint src environment.ts --fix"
+  },
+  "author": "expdani & yielding",
+  "license": "MIT",
+  "dependencies": {
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "@parcel/packager-ts": "^2.7.0",
+    "discord-api-types": "^0.36.3",
+    "discord.js": "^14.6.0",
+    "dotenv": "^16.0.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.8.4"
+  },
+  "devDependencies": {
+    "@norathefurry/eslint-config": "^1.1.2",
+    "@parcel/core": "^2.7.0",
+    "@parcel/transformer-typescript-types": "^2.7.0",
+    "@types/node": "^18.8.5",
+    "eslint": "^8.25.0",
+    "nodemon": "2.0.2",
+    "parcel": "^2.7.0"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "npm start",
+    "ext": "ts"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "targets": {
+    "default": {
+      "context": "node"
+    }
+  }
+}
