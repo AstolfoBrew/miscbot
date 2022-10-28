@@ -14,7 +14,7 @@ export const execute = async (interaction: ModalSubmitInteraction) => {
   await addActivity({
     'name': interaction.fields.getTextInputValue('name'),
     'type': ActivityType[type],
-    'url': interaction.fields.getTextInputValue('url')
+    ...ActivityType[type] === ActivityType.Streaming ? { 'url': interaction.fields.getTextInputValue('url') } : {}
   });
   await interaction.reply('ok');
   await interaction.deleteReply();
