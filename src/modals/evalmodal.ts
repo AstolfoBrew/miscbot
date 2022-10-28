@@ -55,5 +55,6 @@ ${`${typeof error === 'object' ? JSON.stringify(error) : error}`.split('`')
 \`\`\``
     });
   }
+  embed.setTitle('Completed Eval').setDescription('Finished Evaluating! The code & it\'s return value can be found below:');
   await interaction.editReply({ 'embeds': [embed] });
 };
