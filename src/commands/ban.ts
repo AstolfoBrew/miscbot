@@ -34,7 +34,7 @@ export class Command extends BaseCommand implements IBaseCommand {
       didDM = false;
     }
 
-    await interaction.guild.members.ban(user);
+    await interaction.guild.members.ban(user, { reason });
 
     return await interaction.editReply({
       'embeds': [(new EmbedBuilder).setTitle('Banned!')
