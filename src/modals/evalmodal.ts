@@ -40,7 +40,7 @@ ${v}
     'name': 'Result',
     'value': `Type: \`${typeof result}\`
 Value: \`\`\`js
-${result.toString().split('`')
+${`${result}`.split('`')
     .join('​`')}
 \`\`\``
   });
