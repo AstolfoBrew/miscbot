@@ -30,37 +30,20 @@ export class Command extends BaseCommand implements IBaseCommand {
       'afk': interaction.options.getBoolean('afk'),
       'status': interaction.options.getString('status') as PresenceStatusData
     };
-    addActivity({
-      'name': interaction.options.getString('activityname'),
-      'type': ActivityType[interaction.options.getString('activitytype')]
+    return interaction.reply({
+      'content': 'done!', 'components': [new ActionRowBuilder({
+        'components': [(new ButtonBuilder).setCustomId('addactivity')
+          .setLabel('Add Activity')
+          .setEmoji('➕')
+          .setStyle(ButtonStyle.Primary)],
+      }) as any], 'ephemeral': true
     });
-    return interaction.reply({ 'content': 'done!', });
   };
   data = (new SlashCommandBuilder)
     .setName('status')
     .setDescription('Developer-only command! Sets the bot presence.')
     .setDefaultMemberPermissions('0')
     .setDMPermission(true)
-    .addStringOption(v=>v.setName('activityname').setDescription('Name of the activity')
-      .setRequired(true))
-    .addStringOption(v=>v.setName('activitytype').setDescription('Activity Type')
-      .setRequired(true)
-      .setChoices({
-        'name': 'Competing in...',
-        'value': 'Competing'
-      }, {
-        'name': 'Listening to...',
-        'value': 'Listening'
-      }, {
-        'name': 'Playing...',
-        'value': 'Playing'
-      }, {
-        'name': 'Streaming...',
-        'value': 'Streaming'
-      }, {
-        'name': 'Watching...',
-        'value': 'Watching'
-      }))
     .addStringOption(op => op.setName('status').setDescription('Status Type')
       .setChoices({
         'name': 'Online',
