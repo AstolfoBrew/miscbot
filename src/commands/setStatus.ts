@@ -12,7 +12,7 @@ import {
 } from '../classes/BaseCommand';
 
 export let presence: PresenceData;
-export const addActivity = (activity: ActivityOptions) => {
+export const addActivity: (activity: ActivityOptions) => any = (activity: ActivityOptions) => {
   presence.activities.push(activity);
   return client.user.setPresence(presence);
 };
