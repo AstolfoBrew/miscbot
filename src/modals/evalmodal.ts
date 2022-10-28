@@ -32,17 +32,28 @@ ${v}
     .setThumbnail(client.user.avatarURL())
     .setColor('#ef9df2');
   await interaction.reply({ 'embeds': [embed] });
-  // eslint-disable-next-line no-eval
-  const result = await eval(`async (fs, path, interaction, guild, author)=>{
-  ${code}
-}`)(fs, path, interaction, interaction.guild, interaction.member);
-  embed.addFields({
-    'name': 'Result',
-    'value': `Type: \`${typeof result}\`
+  try {
+    // eslint-disable-next-line no-eval
+    const result = await eval(`async (fs, path, interaction, guild, author, client)=>{
+      ${code}
+    }`)(fs, path, interaction, interaction.guild, interaction.member, client);
+    embed.addFields({
+      'name': 'Result',
+      'value': `Type: \`${typeof result}\`
 Value: \`\`\`js
 ${`${result}`.split('`')
     .join('​`')}
 \`\`\``
-  });
+    });
+  } catch (error) {
+    embed.addFields({
+      'name': 'Result',
+      'value': `Type: Throwable - \`${typeof error}\`
+Value: \`\`\`js
+${`${error}`.split('`')
+    .join('​`')}
+\`\`\``
+    });
+  }
   await interaction.editReply({ 'embeds': [embed] });
 };
