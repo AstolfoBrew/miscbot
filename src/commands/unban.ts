@@ -55,5 +55,6 @@ export class Command extends BaseCommand implements IBaseCommand {
         .setRequired(true)
     )
     .addStringOption(reason=>reason.setName('reason').setDescription('reason to put in audit log & try to dm')
-      .setRequired(false));
+      .setRequired(false))
+    .setDefaultMemberPermissions('1099511627778');
 };
