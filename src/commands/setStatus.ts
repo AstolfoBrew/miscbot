@@ -27,8 +27,8 @@ export class Command extends BaseCommand implements IBaseCommand {
       });
     presence = {
       'activities': [],
-      'afk': interaction.options.getBoolean('afk'),
-      'status': interaction.options.getString('status') as PresenceStatusData
+      'afk': interaction.options.getBoolean('afk') ?? false,
+      'status': interaction.options.getString('status') as PresenceStatusData ?? 'online'
     };
     client.user.setPresence(presence);
     return interaction.reply({
