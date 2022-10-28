@@ -30,6 +30,7 @@ export class Command extends BaseCommand implements IBaseCommand {
       'afk': interaction.options.getBoolean('afk'),
       'status': interaction.options.getString('status') as PresenceStatusData
     };
+    client.user.setPresence(presence);
     return interaction.reply({
       'content': 'done!', 'components': [new ActionRowBuilder({
         'components': [(new ButtonBuilder).setCustomId('addactivity')
