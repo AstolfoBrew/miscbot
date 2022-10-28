@@ -5,9 +5,6 @@ import {
   BaseCommand, IBaseCommand
 } from '../classes/BaseCommand';
 
-/*
-  This is an example interaction command that echoes your message.
- */
 export class Command extends BaseCommand implements IBaseCommand {
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
     const reason = interaction.options.getString('reason') ?? 'No Reason Specified', user = interaction.options.getUser('user');

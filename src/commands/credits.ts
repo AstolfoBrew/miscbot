@@ -5,11 +5,7 @@ import client from '..';
 import {
   BaseCommand, IBaseCommand
 } from '../classes/BaseCommand';
-import * as fs from 'fs';
 
-/*
-  This is an example interaction command that echoes your message.
- */
 export class Command extends BaseCommand implements IBaseCommand {
   execute(interaction: ChatInputCommandInteraction<CacheType>) {
     return interaction.reply({
