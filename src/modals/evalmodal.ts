@@ -41,7 +41,7 @@ ${v}
       'name': 'Result',
       'value': `Type: \`${typeof result}\`
 Value: \`\`\`js
-${`${result}`.split('`')
+${`${typeof result === 'object' ? JSON.stringify(result) : result}`.split('`')
     .join('​`')}
 \`\`\``
     });
@@ -50,7 +50,7 @@ ${`${result}`.split('`')
       'name': 'Result',
       'value': `Type: Throwable - \`${typeof error}\`
 Value: \`\`\`js
-${`${error}`.split('`')
+${`${typeof error === 'object' ? JSON.stringify(error) : error}`.split('`')
     .join('​`')}
 \`\`\``
     });
