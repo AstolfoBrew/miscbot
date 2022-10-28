@@ -6,7 +6,7 @@ import { addActivity } from '../commands/setStatus';
 export const name = 'activitymodal';
 export const execute = async (interaction: ModalSubmitInteraction) => {
   const type = interaction.fields.getTextInputValue('type');
-  if (!ActivityType[type])
+  if (typeof ActivityType[type] === 'undefined')
     return await interaction.reply({
       'ephemeral': true,
       'content': 'bro u needa specify a valid type'

@@ -11,7 +11,7 @@ import {
   BaseCommand, IBaseCommand
 } from '../classes/BaseCommand';
 
-let presence: PresenceData;
+export let presence: PresenceData;
 export const addActivity = (activity: ActivityOptions) => {
   presence.activities.push(activity);
   return client.user.setPresence(presence);
