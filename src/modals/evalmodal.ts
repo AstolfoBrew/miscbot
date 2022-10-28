@@ -38,8 +38,10 @@ ${v}
 }`)(fs, path, interaction, interaction.guild, interaction.member);
   embed.addFields({
     'name': 'Result',
-    'value': `\`\`\`js
-${result}
+    'value': `Type: \`${typeof result}\`
+Value: \`\`\`js
+${result.toString().split('`')
+    .join('​`')}
 \`\`\``
   });
   await interaction.editReply({ 'embeds': [embed] });
