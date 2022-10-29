@@ -2,7 +2,7 @@ MIT License
 
 Copyright (c) 2022 Yielding
 Copyright (c) 2022 Mokiy
-Copyright (c) 2022 expdani for certain portions of the software; this does not include any code after the commit 41b26ec5a5bcc2fcbf53b8da46883f2a31529b00
+Copyright (c) 2022 expdani for certain portions of the base software
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

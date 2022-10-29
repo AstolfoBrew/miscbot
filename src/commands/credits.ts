@@ -1,6 +1,7 @@
 import {
   CacheType, ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder,
 } from 'discord.js';
+import path from 'path';
 import client from '..';
 import {
   BaseCommand, IBaseCommand
@@ -8,6 +9,7 @@ import {
 
 export class Command extends BaseCommand implements IBaseCommand {
   execute(interaction: ChatInputCommandInteraction<CacheType>) {
+    const attachLicense = interaction.options.getBoolean('attachlicense');
     return interaction.reply({
       'embeds': [(new EmbedBuilder).setThumbnail(client.user.avatarURL())
         .setColor('#ef9df2')
@@ -27,10 +29,13 @@ export class Command extends BaseCommand implements IBaseCommand {
 • [Source Code](https://github.com/AstolfoBrew/miscbot)`
         })
         .setFooter({ 'text': 'Made with ❤️, using code, by AstolfoDev', })
-        .setTimestamp()]
+        .setTimestamp()],
+      'files': attachLicense ? [{ 'attachment': path.resolve(__dirname, '..', '..', 'LICENSE.txt') }] : []
     });
   };
   data = (new SlashCommandBuilder)
     .setName('credits')
-    .setDescription('Sends credits & license info <3');
+    .setDescription('Sends credits & license info <3')
+    .addBooleanOption(v=>v.setName('attachlicense').setDescription('Should we attach a license file?')
+      .setRequired(false));
 };
