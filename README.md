@@ -21,7 +21,7 @@ To create a new event, see the [Discord.JS Client documentation](https://discord
 ## Getting started
 
 1. `pnpm i`
-2.
+2. `pnpm dev` -> ctrl+c once it errors
 3. add the token to [`.env`](.env)
    > if you don't, the bot will error and ask you to add it.<br/>
    > btw the bot needs `applications.commands`
