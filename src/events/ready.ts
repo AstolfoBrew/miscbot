@@ -26,6 +26,7 @@ SOFTWARE.
 import { readdirSync } from 'fs';
 import { BaseCommand } from '../classes/BaseCommand';
 import { DiscordClient } from '../classes/discord';
+import miscbotAscii from '../miscbot-ascii';
 
 /**
  * Should only fire once!
@@ -34,11 +35,14 @@ export const once = true;
 /*
   This is an event that gets triggered on ready.
  */
-export const execute = (client: DiscordClient) => {
+export const execute = async (client: DiscordClient) => {
+  console.log(`Connected to Discord as ${client.user.tag}!
+Preparing Bot...`);
   const {
     commands, application, buttons, modals
   } = client;
 
+  console.log('Defining Commands...');
   const commandFiles = readdirSync('./src/commands').filter(
     (file: any) => file.endsWith('.ts') || file.endsWith('.js')
   );
@@ -49,6 +53,7 @@ export const execute = (client: DiscordClient) => {
 
   const commandData = commands.map((i) => i.data);
 
+  console.log('Defining Buttons...');
   const buttonFiles = readdirSync('./src/buttons').filter(
     (file: any) => file.endsWith('.ts') || file.endsWith('.js')
   );
@@ -57,6 +62,7 @@ export const execute = (client: DiscordClient) => {
     buttons.set(interaction.name, interaction);
   }
 
+  console.log('Defining Modals...');
   const modalFiels = readdirSync('./src/modals').filter(
     (file: any) => file.endsWith('.ts') || file.endsWith('.js')
   );
@@ -65,6 +71,15 @@ export const execute = (client: DiscordClient) => {
     modals.set(interaction.name, interaction);
   }
 
+  console.log('Registering Commands...');
   // @ts-ignore
-  return application.commands?.set(commandData);
+  application.commands?.set(commandData);
+
+  const readyMsg = `${miscbotAscii}
+Ready!
+Bot: ${client.user.tag} | ${client.user.id}`;
+  try {
+    console.log('\n'.repeat(Math.max(process.stdout.rows - readyMsg.split('\n').length, 2)));
+  } catch (e) { }
+  console.log(readyMsg);
 };

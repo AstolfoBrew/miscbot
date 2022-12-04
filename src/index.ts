@@ -23,11 +23,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+import miscbotAscii from './miscbot-ascii';
+
+console.log(`${miscbotAscii}
+Loading Dependencies....`);
+
 import { readdirSync } from 'fs';
 import {
   Collection, DiscordAPIError, GatewayIntentBits
 } from 'discord.js';
-import { env } from '../environment';
+import { env } from './environment';
 import { DiscordClient } from './classes/discord';
 import Exception from './exceptions/Exception';
 import NotFoundException from './exceptions/NotFoundException';
@@ -36,11 +41,15 @@ if (!env.DISCORD_API_KEY)
   throw new NotFoundException(`Missing API Key!
 Please specify an API key in your .env file!`);
 
+console.log('Preparing Client...');
+
 const client = new DiscordClient({ 'intents': [GatewayIntentBits.Guilds], });
 
 client.commands = new Collection;
 client.buttons = new Collection;
 client.modals = new Collection;
+
+console.log('Loading Events...');
 
 const eventFiles = readdirSync('./src/events').filter(
   (file: any) => file.endsWith('.ts') || file.endsWith('.js')
@@ -56,18 +65,17 @@ for (const file of eventFiles) {
     client.on(eventName, (...args) => event.execute(client, ...args));
 }
 
+console.log('Handle SIGINT...');
+
 process.on('SIGINT', () => {
   console.log('Exiting due to SIGINT');
   client.destroy();
   process.exit(0);
 });
 
-client.login(env.DISCORD_API_KEY).catch((reason:any)=>{
+console.log('Logging In...');
+client.login(env.DISCORD_API_KEY).catch((reason: any) => {
   throw new Exception('Discord API Connection Failed', reason instanceof Exception || reason instanceof DiscordAPIError ? reason : new Exception(reason));
-});
-
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
 });
 
 export default client;

@@ -9,6 +9,7 @@ Miscbot is a simple multipurpose bot, designed as an open-source alternative to 
 - [PNPM](https://pnpm.io/)
 - [Node](https://nodejs.org/en/download/) (v16.9 or higher)
 - A [Discord Bot](https://discord.com/developers)
+- A MongoDB Instance
 
 ### Getting started
 
@@ -17,4 +18,5 @@ Miscbot is a simple multipurpose bot, designed as an open-source alternative to 
 3. add the token to [`.env`](.env)
    > if you don't, the bot will error and ask you to add it.<br/>
    > btw the bot needs `applications.commands`
-4. `pnpm dev`
+4. Put your MongoDB URL into `.env`
+5. `pnpm dev`
