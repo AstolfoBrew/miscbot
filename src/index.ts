@@ -40,6 +40,7 @@ import { env } from './environment';
 import { DiscordClient } from './classes/discord';
 import Exception from './exceptions/Exception';
 import NotFoundException from './exceptions/NotFoundException';
+import boxen from './boxen';
 
 if (!env.DISCORD_API_KEY)
   throw new NotFoundException(`Missing API Key!
@@ -79,7 +80,9 @@ process.on('SIGINT', () => {
 
 console.log('Logging In...');
 client.login(env.DISCORD_API_KEY).catch((reason: any) => {
-  throw new Exception('Discord API Connection Failed', reason instanceof Exception || reason instanceof DiscordAPIError ? reason : new Exception(reason));
+  console.error(new Exception('Discord API Connection Failed', reason instanceof Exception || reason instanceof DiscordAPIError ? reason : new Exception(reason)));
+  boxen('Discord API Connection failed.\nMaybe your token is invalid?');
+  process.exit(1);
 });
 
 export default client;
