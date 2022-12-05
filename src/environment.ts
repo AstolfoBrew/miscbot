@@ -29,12 +29,15 @@ import * as fs from 'fs';
 import EnvException from './exceptions/EnvException';
 import FileNotFoundException from './exceptions/FileNotFoundException';
 import { StackToSingleLine } from './util/StackToSingleLine';
+import boxenImported from './boxen';
+import boxenSettings from './boxenSettings';
 
 const envFile = `${path.resolve(__dirname, '..')}/.env`;
 
 const requireds = [
   'DISCORD_API_KEY',
   'MONGODB_URI',
+  'MONGODB_NAME',
   'OWNERS',
 ];
 
@@ -89,7 +92,11 @@ if (!fs.existsSync(envFile)){
   const envException = new EnvException(`No .env file found!
 We have created a template .env file for you - please input your API key & similar there.`, StackToSingleLine(fileNotFoundEx));
   StackToSingleLine(envException);
-  throw envException;
+  console.error(envException);
+
+  console.error(boxenImported('Please check & update the newly created .env file!', boxenSettings({ 'title': 'No .env file found!' })));
+
+  process.exit(1);
 }
 
 const file = dotenv.config({ 'path': envFile });
@@ -99,7 +106,11 @@ const unmetRequirements = requireds.filter(v => !process.env[v]);
 if (process.env.DISCORD_API_KEY === 'REPLACE ME') {
   const envException = new EnvException(`Please update your .env file.`, StackToSingleLine(new EnvException('Sample token found; Please replace it in your .env file.')));
   StackToSingleLine(envException);
-  throw envException;
+  console.error(envException);
+
+  console.error(boxenImported('Please check & update the .env file\'s discord token', boxenSettings({ 'title': 'Sample Token Found' })));
+
+  process.exit(1);
 }
 
 if (unmetRequirements.length > 0) {
@@ -107,7 +118,11 @@ if (unmetRequirements.length > 0) {
   fs.writeFileSync(envFile, envContent());
   const envException = new EnvException(`Please update your .env file.`, StackToSingleLine(envLackingException));
   StackToSingleLine(envException);
-  throw envException;
+  console.error(envException);
+
+  console.error(boxenImported('Please check & update the updated .env file', boxenSettings({ 'title': 'Env file updated!' })));
+
+  process.exit(1);
 }
 
 /**

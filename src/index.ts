@@ -23,7 +23,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-import miscbotAscii from './miscbot-ascii';
+try {
+  process.title = '< miscbot >';
+} catch (error) {}
+
+import miscbotAscii from './miscbotAscii';
 
 console.log(`${miscbotAscii}
 Loading Dependencies....`);

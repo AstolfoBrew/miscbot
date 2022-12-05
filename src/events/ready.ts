@@ -26,7 +26,10 @@ SOFTWARE.
 import { readdirSync } from 'fs';
 import { BaseCommand } from '../classes/BaseCommand';
 import { DiscordClient } from '../classes/discord';
-import miscbotAscii from '../miscbot-ascii';
+import miscbotAscii from '../miscbotAscii';
+import { start as startCLI } from '../cli';
+import chalk from '../chalk';
+import whoami from '../cli/whoami';
 
 /**
  * Should only fire once!
@@ -75,11 +78,13 @@ Preparing Bot...`);
   // @ts-ignore
   application.commands?.set(commandData);
 
-  const readyMsg = `${miscbotAscii}
-Ready!
-Bot: ${client.user.tag} | ${client.user.id}`;
+  const readyMsg = `${chalk.rgb(122, 122, 255)(miscbotAscii)}
+${whoami()}
+${chalk.greenBright('[miscli]')} ${`Type 'help' for a list of CLI Commands`}`;
   try {
-    console.log('\n'.repeat(Math.max(process.stdout.rows - readyMsg.split('\n').length, 2)));
+    console.log('\n'.repeat(Math.max(process.stdout.rows, 2)));
+    process.stdout.cursorTo(0, 0);
   } catch (e) { }
   console.log(readyMsg);
+  startCLI();
 };
