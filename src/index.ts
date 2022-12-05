@@ -32,10 +32,10 @@ import miscbotAscii from './miscbotAscii';
 console.log(`${miscbotAscii}
 Loading Dependencies....`);
 
-import { readdirSync } from 'fs';
 import {
   Collection, DiscordAPIError, GatewayIntentBits
 } from 'discord.js';
+import { readdirSync } from 'fs';
 import { env } from './environment';
 import { DiscordClient } from './classes/discord';
 import Exception from './exceptions/Exception';
@@ -46,9 +46,16 @@ if (!env.DISCORD_API_KEY)
   throw new NotFoundException(`Missing API Key!
 Please specify an API key in your .env file!`);
 
+console.log('Loading @discordjs/voice...');
+import '@discordjs/voice';
+
 console.log('Preparing Client...');
 
-const client = new DiscordClient({ 'intents': [GatewayIntentBits.Guilds], });
+const client = new DiscordClient({
+  'intents': [
+    GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates
+  ],
+});
 
 client.commands = new Collection;
 client.buttons = new Collection;
